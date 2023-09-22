@@ -23,76 +23,118 @@ def repartir()-> tuple:
     random.shuffle(baraja)
 
     # repartimos
-    jugador= baraja[[0,2,4]]
-    bot= baraja[[1,3,5]]
+    jugador= ['',baraja[0],baraja[2],baraja[4]]
+    bot= [baraja[1],baraja[3],baraja[5]]
     
     return jugador, bot
 
-def mano(jugador,bot):
+def ronda():
 
     irse= False
     jugador,bot= repartir()
-    manos= ['Primera', 'Segunda', 'Tercera']
+    etiquetas= ['Primera', 'Segunda', 'Tercera']
+    jugar= 'si'
+    manos= []
 
     while irse == False:
-        for mano in manos:
-            print(f"{manos} mano\n")
-            jugar= input('jugas? SI/NO ').lower()
-            
-            if jugar == 'si':
+        for mano in etiquetas:
+            if jugar == 'si':                
+                print(f"{mano} mano\n")
+                jugador1(jugador)
 
-                carta= int(input("que carta vas a tirar? 1/2/3 ------> "))
-                print(f'\nCarta Jugador: {jugador[carta - 1]}')
 
-                random.shuffle(bot)
-                print(f'Carta PC: {bot[0]}\n')
-                break
+                if mano == 'Primera':
+                    print('\n')
+                    e= envido(bot)
+                else:
+                    t= input('----TRUCO----   -> SI/NO: ').lower()
+                    if t == 'si':
+                        truco()
+                    else:
+                        pass
+
+
+                carta= input("que carta vas a tirar? ------> ").lower()
+                if carta == 'mazo':
+                    salir= input('Estas seguro que das la ronda por terminada? SI/NO: ').lower()
+                    if salir == 'si':
+                        return 
+                    else:
+                        pass
+                else:
+                    print(f'\nCarta Jugador: {jugador[int(carta)]}')
+                    random.shuffle(bot)
+                    print(f'Carta PC: {bot[0]}\n')
+                    
+                    manos.append((jugador[int(carta)],bot[0]))
+                    jugador.pop(int(carta))
+                    bot.pop(0)
+                    if mano == 'Tercera':
+                        irse= True
+                        break
+                    else:
+                        continue
+                
             elif jugar == 'no':
                 irse = True
                 break
-            else:
-                print('Elige una opcion')
-                continue
 
-    return
+    return manos
 
-def jugador(promp= 'Ingresa tu nombre: '):
-    nombre= input(promp)
-    return nombre
+def jugador1(cartas= None)-> list|str|None:
 
-def envido():
+    for idx, carta in enumerate(cartas):
+        if carta == '':
+            continue
+        else:
+            print(idx,' --->',carta,end= '  ')
 
+    return 
+
+def envido(a):
+    bot= a
     envido= False
     while envido == False:
         temp= input('quieres cantar envido? SI/NO   ').lower()
         if temp == 'si':
             envido= True
             print('ENVIDO')
+            if (bot[0][1]== bot[1][1] or bot[0][1] == bot[2][1] or bot[1][1] == bot[2][1]) and envido == True:
+                print('Quiero')
+            else:
+                print('No quiero') 
         elif temp == 'no':
             break
         else:
             print('Ingreso incorrecto. Debe responder si o no\n')
 
-    if (bot[0][1]== bot[1][1] or bot[0][1] == bot[2][1] or bot[1][1] == bot[2][1]) and envido == True:
-        print('QUIERO')
-
     return
 
-def truco():
+def truco(*args):
+    valores= [(1,'espada'),(1,'basto'),(7,'espada'),(7,'oro'),(3),(2),((1,'oro'),(1,'copas')),(12),(11),(10),((7,'basto'),(7,'copas')),(6),(5),(4)]
+    
     return
 
-
-def ronda():
-    return
 
 def puntaje():
     return
 
 def main():
-    print(f'\n\nBienvenido al Juego del Truco!')
+    
+    print(f'\n\nBienvenido al Juego del Truco!\n')
+    nombre= input('Ingresa tu nombre: ')
+    while True:
+        print(f'\nJugador1: {nombre}')
+        juego= ronda()
+        print('\nFin de la ronda')
+        continuar= input('Continuar?? SI/NO ').lower()
 
-    print('Fin de la ronda')
-    input('Continuar?? SI/NO ').lower()
+        if continuar == 'no':
+            break
+        else:
+            print('-'*80)
+            continue
+
 
     return
 
