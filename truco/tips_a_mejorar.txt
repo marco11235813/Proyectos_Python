@@ -1,0 +1,42 @@
+-En envido(), debemos configurar el flujo de puntajes(cual es el mas alto, cual es el mas bajo
+o si hay empate) y valorizacion de cada carta:
+
+* las 'negras' son las cartas rey, caballo y zota--->(12,11 y 10 respectivamente)
+* cuando hay dos cartas 'negras' del mismo palo, entre las dos valen 20 puntos
+* cuando hay dos cartas del mismo palo y una de ellas es negra y la otra no, la negra sola vale automaticamente
+  20 puntos y se suma al puntaje de la carta que no es 'negra'
+* cuando hay 2 cartas del mismo palo y ninguna de ellas es 'negra', al puntaje de la suma resultante entre
+  las dos cartas, se le suman 20 puntos.
+  por ahora, no se jugara con flor(las 3 cartas del mismo palo)
+* cuando las 3 cartas son de distinto palo, se toma el puntaje de la carta mas alta(si las 3 son negras, el puntaje es 0)
+
+
+-Debemos mostrar el puntaje de cada jugador en la ronda de envido
+
+-en ronda(), debemos establecer el puntaje final ganado por cada jugador, y depositar ese puntaje en la sumatoria total de
+ puntos ganados de todas las rondas hasta el momento en la funcion puntaje()
+-en cada mano, e debe establecer claramente que jugador ganó(cual tiro la carta con mayor valor y,
+por lo tanto gano la mano), luego el que gana 2 de las tres manos que dura la ronda es el ganador d ela ronda y se realiza
+el conteo de puntos general.
+-Se debe establecer el caso de pardas(que ambos jugadores tiren cartas del mismo valor), y en que mano se dio 
+la parda(en caso de que se de pardas en la pirmera mano, el ganador de la segunda mano es el ganador de la ronda, obviando la tercera mano,
+en caso de que se de pardas en la primera y en la segunda mano, el ganador de la tercera mano sera el ganador de la ronda)
+- no se puede establecer pardas en la segunda mano si previamente en la primera mano hubo un ganador(es decir si un jugador
+gano la pirmera mano, en la segunda mano debe haber un ganador si o si, en caso de empardar, el ganador de la
+primera mano es el ganador de la ronda)
+
+- en truco() se deben establecer las instancias de 'retruco' y de 'vale 4', 
+- no se puede cantar 'retruco' sin primero cantar truco
+- no se puede cantar 'vale cuatro' sin haber cantado retruco primero
+- el jugador que canto truco no puede cantar retruco, si o si debe realizarlo el otro jugador
+- lo mismo para el 'vale 4', no puede cantarlo el mismo jugador que canto retruco.
+
+- en puntaje(), se debe realizar el seguimiento de cada ronda:
+*las instancias ganadas(envido,truco,retruco,vale 4)
+*los puntos correspondientes a cada instancia
+
+
+
+
+
+

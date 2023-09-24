@@ -1,9 +1,11 @@
 # Juego del Truco 
 
+
+#Importamos las librerias/modulos que vamos a necesitar
 import random
 
 
-
+#--------------------------------------------------------------------------
 def repartir()-> tuple:
 
     # matriz de valores
@@ -27,7 +29,7 @@ def repartir()-> tuple:
     bot= [baraja[1],baraja[3],baraja[5]]
     
     return jugador, bot
-
+#--------------------------------------------------------------------------
 def ronda():
 
     irse= False
@@ -46,15 +48,15 @@ def ronda():
                 if mano == 'Primera':
                     print('\n')
                     e= envido(bot)
-                else:
-                    t= input('----TRUCO----   -> SI/NO: ').lower()
-                    if t == 'si':
-                        truco()
-                    else:
-                        pass
 
-
+                t= input('\n----TRUCO----   -> SI/NO: ').lower()
                 carta= input("que carta vas a tirar? ------> ").lower()
+
+                if t == 'si':
+                    truco(jugador[int(carta)],bot[0])
+                else:
+                    pass
+
                 if carta == 'mazo':
                     salir= input('Estas seguro que das la ronda por terminada? SI/NO: ').lower()
                     if salir == 'si':
@@ -80,7 +82,7 @@ def ronda():
                 break
 
     return manos
-
+#--------------------------------------------------------------------------
 def jugador1(cartas= None)-> list|str|None:
 
     for idx, carta in enumerate(cartas):
@@ -90,7 +92,7 @@ def jugador1(cartas= None)-> list|str|None:
             print(idx,' --->',carta,end= '  ')
 
     return 
-
+#--------------------------------------------------------------------------
 def envido(a):
     bot= a
     envido= False
@@ -109,16 +111,35 @@ def envido(a):
             print('Ingreso incorrecto. Debe responder si o no\n')
 
     return
+#--------------------------------------------------------------------------
+def truco(jugador:tuple, bot:tuple):
 
-def truco(*args):
-    valores= [(1,'espada'),(1,'basto'),(7,'espada'),(7,'oro'),(3),(2),((1,'oro'),(1,'copas')),(12),(11),(10),((7,'basto'),(7,'copas')),(6),(5),(4)]
-    
+    valores= [(1,'espada'),(1,'basto'),(7,'espada'),(7,'oro'),(3,),(2,),((1,'oro'),(1,'copas')),(12,),(11,),(10,),((7,'basto'),(7,'copas')),(6,),(5,),(4,)]
+
+    for valor in valores:
+        if isinstance(valor[0],tuple):
+            if jugador in valor:
+                carta_jug= valores.index(valor)
+            elif bot in valor:
+                carta_bot= valores.index(valor)
+
+        else:
+            if isinstance(valor[0],int) and len(valor) == 2:
+                if jugador == valor:
+                    carta_jug= valores.index(valor)
+                elif bot == valor:
+                    carta_bot= valores.index(valor)
+            elif len(valor) == 1:
+                if jugador[0] == valor[0]:
+                    carta_jug= valores.index(valor)
+                elif bot[0] == valor[0]:
+                    carta_bot= valores.index(valor)
+
+    return carta_jug,carta_bot
+#--------------------------------------------------------------------------
+def puntaje(puntos: tuple):
     return
-
-
-def puntaje():
-    return
-
+#--------------------------------------------------------------------------
 def main():
     
     print(f'\n\nBienvenido al Juego del Truco!\n')
@@ -137,7 +158,7 @@ def main():
 
 
     return
-
+#--------------------------------------------------------------------------
 if __name__ == '__main__':
     main()
 
